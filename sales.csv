@@ -1,0 +1,16 @@
+date,product,region,quantity,revenue
+2026-01-05,Laptop,Ireland,3,3600
+2026-01-08,Monitor,Ireland,5,1500
+2026-01-12,Keyboard,UK,10,800
+2026-01-15,Laptop,UK,2,2400
+2026-01-20,Monitor,Germany,8,2400
+2026-02-03,Laptop,Ireland,4,4800
+2026-02-07,Keyboard,Ireland,15,1200
+2026-02-11,Monitor,UK,6,1800
+2026-02-18,Laptop,Germany,3,3600
+2026-03-02,Keyboard,Ireland,20,1600
+2026-03-06,Monitor,Germany,10,3000
+2026-03-14,Laptop,UK,5,6000
+2026-03-21,Monitor,Ireland,7,2100
+2026-03-25,Keyboard,Germany,12,960
+2026-03-28,Laptop,Ireland,2,2400
