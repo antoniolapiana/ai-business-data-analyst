@@ -1,6 +1,8 @@
 from google import genai
 from sql_model import SQLQuery
 import os
+from database import execute_query
+from sql_validator import validate_sql
 
 
 def generate_sql(client, question, schema, previous_error=None):
@@ -76,3 +78,43 @@ Do not mention SQL, Python, or the database.
     )
 
     return response.text
+
+
+def run_query_with_retry(
+    client,
+    question,
+    schema
+):
+    sql_query = generate_sql(
+        client,
+        question,
+        schema
+    )
+
+    print("\nGenerated SQL:")
+    print(sql_query)
+
+    validate_sql(sql_query)
+
+    try:
+        result = execute_query(sql_query)
+
+    except Exception as e:
+        print("\nSQL Error:")
+        print(e)
+
+        sql_query = generate_sql(
+            client,
+            question,
+            schema,
+            previous_error=str(e)
+        )
+
+        print("\nCorrected SQL:")
+        print(sql_query)
+
+        validate_sql(sql_query)
+
+        result = execute_query(sql_query)
+
+    return sql_query, result
