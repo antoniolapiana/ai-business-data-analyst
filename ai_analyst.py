@@ -7,8 +7,7 @@ from business_context import BUSINESS_CONTEXT
 from schema_validator import validate_schema
 
 
-def generate_sql(client, question, schema, previous_error=None):
-
+def generate_sql(question, schema, previous_error=None):
     error_context = ""
 
     if previous_error:
@@ -54,7 +53,7 @@ Do not explain anything.
     return response.message.content.strip()
 
 
-def generate_answer(client, question, sql_query, result):
+def generate_answer(question, sql_query, result):
 
     answer_prompt = f"""
 You are a business data analyst.
@@ -88,12 +87,10 @@ Do not mention SQL, Python, or the database.
 
 
 def run_query_with_retry(
-    client,
     question,
     schema
 ):
     sql_query = generate_sql(
-        client,
         question,
         schema
     )
@@ -112,7 +109,6 @@ def run_query_with_retry(
         print(e)
 
         sql_query = generate_sql(
-            client,
             question,
             schema,
             previous_error=str(e)
