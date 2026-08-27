@@ -1,4 +1,9 @@
 import sqlite3
+from database import get_schema
+
+schema = get_schema()
+
+print(schema)
 
 connection = sqlite3.connect("sales.db")
 cursor = connection.cursor()

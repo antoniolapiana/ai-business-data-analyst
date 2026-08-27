@@ -12,3 +12,15 @@ def execute_query(sql_query):
     connection.close()
 
     return result
+
+def get_schema():
+    connection = sqlite3.connect("sales.db")
+    cursor = connection.cursor()
+
+    cursor.execute("PRAGMA table_info(sales)")
+
+    columns = cursor.fetchall()
+
+    connection.close()
+
+    return columns
