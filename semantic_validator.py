@@ -5,7 +5,23 @@ def validate_question(question, schema, business_context):
     prompt = f"""
 You are a semantic validator for a business data analysis system.
 
-Determine whether the user's question can be answered using ONLY the available database schema and business context.
+Determine whether the user's question can be answered using the available database schema and business context.
+
+A question is SUPPORTED if the required answer can be obtained directly OR calculated/derived from the available fields using valid SQL operations such as:
+- SUM
+- AVG
+- COUNT
+- MIN
+- MAX
+- arithmetic between columns or aggregates
+- GROUP BY
+- filtering
+- sorting
+
+Do not require the requested business metric to exist as a physical database column.
+
+For example:
+If the schema contains revenue and quantity, a question about average revenue per unit is SUPPORTED because it can be calculated from those fields.
 
 Database schema:
 {schema}
