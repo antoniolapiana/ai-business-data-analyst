@@ -24,7 +24,6 @@ sql_query, result = run_query_with_retry(
 )
 
 if sql_query is None:
-    print("\nI cannot answer this question using the available data.")
     exit()
 
 logger.info("Database result: %s", result)

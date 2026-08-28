@@ -91,13 +91,14 @@ def run_query_with_retry(
     question,
     schema
 ):
-    supported = validate_question(
+    supported, validation_message = validate_question(
         question,
         schema,
         BUSINESS_CONTEXT
     )
 
     if not supported:
+        print(f"\n{validation_message}")
         return None, None
 
     sql_query = generate_sql(

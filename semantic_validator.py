@@ -16,10 +16,13 @@ Business context:
 User question:
 {question}
 
-Return ONLY one of these two values:
-
+If the question can be answered using the available data, return:
 SUPPORTED
-UNSUPPORTED
+
+If the question cannot be answered, return:
+UNSUPPORTED: <brief explanation of why the available data is insufficient>
+
+Do not invent missing data.
 """
 
     response = chat(
@@ -32,12 +35,12 @@ UNSUPPORTED
         ]
     )
 
-    result = response.message.content.strip().upper()
+    result = response.message.content.strip()
 
-    if "UNSUPPORTED" in result:
-        return False
+    if result.upper().startswith("UNSUPPORTED"):
+        return False, result
 
-    if "SUPPORTED" in result:
-        return True
+    if result.upper().startswith("SUPPORTED"):
+        return True, result
 
     raise ValueError("Invalid semantic validation result.")
