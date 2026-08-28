@@ -5,6 +5,7 @@ from database import execute_query
 from sql_validator import validate_sql
 from business_context import BUSINESS_CONTEXT
 from schema_validator import validate_schema
+from semantic_validator import validate_question
 
 
 def generate_sql(question, schema, previous_error=None):
@@ -90,6 +91,15 @@ def run_query_with_retry(
     question,
     schema
 ):
+    supported = validate_question(
+        question,
+        schema,
+        BUSINESS_CONTEXT
+    )
+
+    if not supported:
+        return None, None
+
     sql_query = generate_sql(
         question,
         schema
